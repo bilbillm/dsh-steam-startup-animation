@@ -4,6 +4,8 @@
 
 A six-second startup sequence for DeepSeek Harness Desktop: a pressure-stroke terminal workstation draws itself, flows into a ring, and reveals the official DeepSeek whale and wordmark. Optional Steam Big Picture startup audio plays at its original speed in stereo.
 
+Package: `@bilbillm/dsh-startup-animation`. Component: `bilbillm-startup-animation`.
+
 ![DeepSeek startup](assets/startup.png)
 ![Terminal workstation](assets/terminal.png)
 

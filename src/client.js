@@ -78,8 +78,8 @@ function apply(ctx) {
       h('label',{style:{display:'flex',gap:20,alignItems:'center',padding:'12px 0'}},h('span',null,text('音量','Volume')),h('input',{'aria-label':text('音量','Volume'),type:'range',min:0,max:1,step:0.05,value:preferences.volume,onChange:event=>update({volume:Number(event.target.value)}),style:{flex:1}}),h('span',null,`${Math.round(preferences.volume*100)}%`)),
       h('button',{type:'button',onClick:playPreview,style:{marginTop:12,padding:'9px 16px',font:'inherit',borderRadius:6,border:'1px solid currentColor',background:'transparent',color:'inherit',cursor:'pointer'}},text('播放预览','Play preview')));
   }
-  ctx.slots.inject('plugins.bundle.config',()=>ctx.slots.register({name:'plugins.bundle.config',key:'dsh-startup-animation'},Settings));
+  ctx.slots.inject('plugins.bundle.config',()=>ctx.slots.register({name:'plugins.bundle.config',key:'@bilbillm/dsh-startup-animation'},Settings));
 }
-exports.name='dsh-startup-animation';
+exports.name='bilbillm-startup-animation';
 exports.inject=['slots'];
 exports.apply=apply;

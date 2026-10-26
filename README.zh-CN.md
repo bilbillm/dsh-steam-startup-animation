@@ -4,6 +4,8 @@
 
 为 DeepSeek Harness 桌面端加入 6 秒开屏：带粗细变化的终端工作站逐笔成形，流畅变成圆环，再显现 DeepSeek 官方鲸鱼和文字。可选 Steam 大屏幕模式原版启动音效，保留原速和双声道。
 
+包名：`@bilbillm/dsh-startup-animation`。组件 ID：`bilbillm-startup-animation`。
+
 ![DeepSeek 开屏](assets/startup.png)
 ![终端工作站](assets/terminal.png)
 
