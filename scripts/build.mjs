@@ -1,0 +1,17 @@
+import {readFile,writeFile,mkdir,copyFile} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+import path from 'node:path';
+const root=fileURLToPath(new URL('../',import.meta.url));
+const read=relative=>readFile(path.join(root,relative),'utf8');
+const pkg=JSON.parse(await read('package.json'));
+const brand=JSON.parse(await read('src/data/brand.json'));
+const lightShape=JSON.parse(await read('src/data/light-shape.json'));
+const lightFrames=JSON.parse(await read('src/data/light-timing.json'));
+const audio=await readFile(path.join(root,'assets/steam-startup.mp3'));
+const constants=`const brand=${JSON.stringify(brand)},lightShape=${JSON.stringify(lightShape)},lightFrames=${JSON.stringify(lightFrames)};\nconst audioSource=${JSON.stringify('data:audio/mpeg;base64,'+audio.toString('base64'))};\n`;
+const preferences=(await read('src/preferences.js')).replace(/^export /gm,'');
+const client=`window.__ModuleLoader__.load({id:${JSON.stringify(pkg.name)},factory:(require)=>{\n'use strict';\nvar module={exports:{}};var exports=module.exports;\n${constants}\n${preferences}\n${await read('src/animation.js')}\n${await read('src/client.js')}\nreturn module.exports;\n}});\n`;
+await mkdir(path.join(root,'lib'),{recursive:true});
+await writeFile(path.join(root,'lib/client.js'),client);
+await copyFile(path.join(root,'src/index.js'),path.join(root,'lib/index.js'));
+console.log(`Built ${pkg.name}@${pkg.version}: ${Buffer.byteLength(client)} byte client; no network assets.`);
