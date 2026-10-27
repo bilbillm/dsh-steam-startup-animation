@@ -2,7 +2,7 @@ import {readFile,writeFile,mkdir,copyFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 const root=fileURLToPath(new URL('../',import.meta.url));
-const read=relative=>readFile(path.join(root,relative),'utf8');
+const read=async relative=>(await readFile(path.join(root,relative),'utf8')).replace(/\r\n/g,'\n');
 const pkg=JSON.parse(await read('package.json'));
 const brand=JSON.parse(await read('src/data/brand.json'));
 const lightShape=JSON.parse(await read('src/data/light-shape.json'));
