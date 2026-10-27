@@ -1,8 +1,8 @@
-# DeepSeek 开屏动画
+# DSH Steam 风格开屏动画
 
 [English](README.md)
 
-为 DeepSeek Harness 桌面端加入 6 秒开屏：带粗细变化的终端工作站逐笔成形，流畅变成圆环，再显现 DeepSeek 官方鲸鱼和文字。可选 Steam 大屏幕模式原版启动音效，保留原速和双声道。
+为 DeepSeek Harness 桌面端加入 Steam 大屏幕风格的 6 秒开屏：带粗细变化的终端工作站逐笔成形，流畅变成圆环，再显现 DeepSeek 官方鲸鱼和文字。可选原版启动音效，保留原速和双声道。
 
 包名：`@bilbillm/dsh-startup-animation`。组件 ID：`bilbillm-startup-animation`。
 
@@ -13,7 +13,7 @@
 
 需要 DeepSeek Harness **0.2.1-rc.3 或更新的 0.2.x 版本**。
 
-1. 从 [Releases](https://github.com/bilbillm/dsh-startup-animation/releases/latest) 下载 `dsh-startup-animation.tgz`。
+1. 从 [Releases](https://github.com/bilbillm/dsh-steam-startup-animation/releases/latest) 下载 `dsh-startup-animation.tgz`。
 2. 打开桌面端的**插件管理 → 添加插件**，输入本地压缩包路径，或 Release 下载地址。
 3. 启用插件；宿主提示需要刷新时，重新加载应用。
 
@@ -22,7 +22,7 @@
 普通 Web profile 也可安装：
 
 ```sh
-dsh plugin --profile web add https://github.com/bilbillm/dsh-startup-animation/releases/latest/download/dsh-startup-animation.tgz
+dsh plugin --profile web add https://github.com/bilbillm/dsh-steam-startup-animation/releases/latest/download/dsh-startup-animation.tgz
 ```
 
 默认仅桌面端自动播放；可在插件页面开启 Web 自动播放。
@@ -39,6 +39,8 @@ dsh plugin --profile web add https://github.com/bilbillm/dsh-startup-animation/r
 
 插件不读取对话或凭据，不请求网络，不修改宿主源码，也没有安装期脚本。动画、光场和音效都随插件打包。禁用或卸载时会停止音频、取消动画帧、释放观察器和事件监听、移除遮罩并恢复焦点。
 
+动画通过独立的 OffscreenCanvas 工作线程绘制，Harness 启动任务加载时仍能继续播放；最后的淡出由合成动画完成。不支持工作线程绘制的浏览器会使用相同画面的兼容路径。
+
 ## 开发
 
 仓库已包含构建后的 `lib/`，从源码安装无需运行构建脚本。Node.js 22+ 可重新构建：
@@ -48,7 +50,7 @@ npm run check
 npm pack
 ```
 
-`tests/browser.cjs` 通过 Playwright 验证 Canvas 渲染与浏览器生命周期；`scripts/build.mjs` 仅使用 Node 内置模块。React 与 Cordis slots 由宿主提供，配置页通过公开的 `plugins.bundle.config` 扩展位注册。
+安装 Playwright 后，`tests/browser.cjs` 验证兼容路径，`tests/worker-lifecycle.cjs` 验证工作线程的播放和回收，`tests/startup-contention.cjs` 验证界面线程忙 180 毫秒时动画继续播放。可用 `DSH_PLAYWRIGHT_MODULE` 指向已有的 Playwright 安装。`scripts/build.mjs` 仅使用 Node 内置模块。React 与 Cordis slots 由宿主提供，配置页通过公开的 `plugins.bundle.config` 扩展位注册。
 
 ## 署名与许可
 

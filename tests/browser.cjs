@@ -10,6 +10,8 @@ const project=path.resolve(__dirname,'..');
   await page.route('http://startup.test/',route=>route.fulfill({contentType:'text/html',body:'<!doctype html><html lang="zh"><body style="margin:0"><main id="app"><input id="draft" value="keep my draft"><button id="focus">Host focus</button></main></body></html>'}));
   await page.goto('http://startup.test/');
   await page.evaluate(()=>{
+    // Deterministic lifecycle checks exercise the main-thread fallback.
+    Object.defineProperty(window,'OffscreenCanvas',{value:undefined});
     window.dshDesktop={window:{}};
     const callbacks=new Map();let now=0,id=1;
     Object.defineProperty(performance,'now',{value:()=>now});

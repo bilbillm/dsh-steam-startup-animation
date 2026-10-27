@@ -1,7 +1,7 @@
 {
   "name": "@bilbillm/dsh-startup-animation",
-  "version": "1.0.0",
-  "description": "A six-second cinematic DeepSeek Harness desktop startup animation with a terminal-to-whale transition and optional startup audio.",
+  "version": "1.0.1",
+  "description": "Steam 大屏幕风格的 DeepSeek Harness 开屏动画：6 秒终端工作站到鲸鱼的流畅过渡，支持原版启动音效、音量设置、预览和 Esc 跳过。",
   "type": "module",
   "main": "lib/index.js",
   "icon": "assets/icon.png",
@@ -27,8 +27,8 @@
   },
   "license": "MIT",
   "author": "bilbillm",
-  "repository": {"type": "git", "url": "git+https://github.com/bilbillm/dsh-startup-animation.git"},
-  "homepage": "https://github.com/bilbillm/dsh-startup-animation#readme",
-  "bugs": {"url": "https://github.com/bilbillm/dsh-startup-animation/issues"},
+  "repository": {"type": "git", "url": "git+https://github.com/bilbillm/dsh-steam-startup-animation.git"},
+  "homepage": "https://github.com/bilbillm/dsh-steam-startup-animation#readme",
+  "bugs": {"url": "https://github.com/bilbillm/dsh-steam-startup-animation/issues"},
   "keywords": ["dsh", "dsh-plugin", "deepseek-harness", "desktop", "startup", "animation"]
 }

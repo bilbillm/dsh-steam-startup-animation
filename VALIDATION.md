@@ -1,6 +1,23 @@
 # Validation
 
-Version: 1.0.0. Validated on 2026-10-27, Windows, DeepSeek Harness Desktop 0.2.1-rc.3.
+Versions: 1.0.0 and 1.0.1. Validated on 2026-10-27, Windows, DeepSeek Harness Desktop 0.2.1-rc.3.
+
+## Startup performance regression
+
+Version 1.0.0 was correct on a settled preview, but shared the main thread with host startup work. One real Desktop startup recorded a 188.9 ms animation frame gap alongside a 178 ms host long task. The animation's 95th-percentile drawing cost was 0.6 ms and hardware acceleration was enabled.
+
+The regression fixture in `tests/startup-contention.cjs` reproduces this scheduling pattern with the actual plugin client and a controlled 180 ms host task:
+
+| Renderer | Longest frame gap | Gaps over 50 ms |
+| --- | ---: | ---: |
+| 1.0.0 main thread | 172.1 ms | 2 |
+| 1.0.1 dedicated worker | 33.3 ms | 0 |
+
+These are measured runs on the test machine, not a frame-rate guarantee for all hardware. Worker playback, failure recovery, Escape, reduced motion, audio cleanup and focus restoration pass. Nine sampled artwork frames from 0.15 to 5.55 seconds match 1.0.0 exactly, with zero changed pixels.
+
+After installing the 1.0.1 package, the user confirmed that startup playback no longer stuttered.
+
+The worker uses the standard [OffscreenCanvas animation-frame path](https://html.spec.whatwg.org/dev/imagebitmap-and-animations.html#animation-frames). The final opacity transition follows the compositor path described in [Chromium's rendering architecture](https://developer.chrome.com/docs/chromium/renderingng-architecture).
 
 ## Installed Desktop
 
